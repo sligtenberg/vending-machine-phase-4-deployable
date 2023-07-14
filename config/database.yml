@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: vending_machine_phase_4_deployable_production
-  username: vending_machine_phase_4_deployable
-  password: <%= ENV["VENDING_MACHINE_PHASE_4_DEPLOYABLE_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
