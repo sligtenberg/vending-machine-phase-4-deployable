@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   resources :vending_machines
   resources :users
 
-  # route to test your configuration
-  get '/hello', to: 'application#hello_world'
+  # PRODUCTION ROUTES
 
+  # FALLBACK ROUTE
+  # this route should be last in the routes list, and causes the page to render the html file
   get '*path',
   to: 'fallback#index',
   constraints: ->(req) { !req.xhr? && req.format.html? }
