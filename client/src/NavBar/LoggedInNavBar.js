@@ -15,6 +15,21 @@ function LoggedInNavBar() {
 
   return (
     <nav>
+      <NavLink to='/home'>
+        <button>
+          Home
+        </button>
+      </NavLink>
+      <NavLink to='/shop'>
+        <button>
+          Shop
+        </button>
+      </NavLink>
+      <NavLink to='/user-machines'>
+        <button>
+          User Machines
+        </button>
+      </NavLink>
       <NavLink to='/'>
         <button onClick={handleLogout} >
           Log Out
