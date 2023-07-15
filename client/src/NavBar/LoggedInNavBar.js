@@ -3,7 +3,7 @@ import { UserContext } from "../Context/user";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 function LoggedInNavBar() {
-  const { setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   function handleLogout() {
     fetch('/logout', {method: 'DELETE'})
@@ -25,9 +25,9 @@ function LoggedInNavBar() {
           Shop
         </button>
       </NavLink>
-      <NavLink to='/user-machines'>
+      <NavLink to={`/${user.username.toLowerCase()}`}>
         <button>
-          User Machines
+          My Vending Machines
         </button>
       </NavLink>
       <NavLink to='/'>
