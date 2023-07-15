@@ -14,7 +14,7 @@ function MainPageContainer() {
           <div>User Machines</div>
         </Route>
         <Route exact path='/'>
-          <div>Home</div>
+          <div>Home Page / Instructions</div>
         </Route>
         <Route path='*'>
           <h1>404 not found</h1>

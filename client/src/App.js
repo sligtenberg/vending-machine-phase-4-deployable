@@ -6,6 +6,8 @@ import MainPageContainer from "./MainPage/MainPageContainer";
 function App() {
   const { user, setUser } = useContext(UserContext)
 
+  console.log(user)
+
   useEffect(() => {
     // auto login
     fetch('/me').then(rspns => {

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
   # DEVELOPMENT ROUTES - MUST DELETE FOR PRODUCTION
-  resources :inventories, only: [:index]
-  resources :snacks, only: [:index]
-  resources :vending_machines, only: [:index]
-  resources :users, only: [:index]
+  # resources :inventories, only: [:index]
+  # resources :snacks, only: [:index]
+  # resources :vending_machines, only: [:index]
+  # resources :users, only: [:index]
 
   # PRODUCTION ROUTES
 
