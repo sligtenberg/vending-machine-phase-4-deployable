@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   # auto login route:
   get '/me', to: 'users#show'
 
+  # session routes:
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   # FALLBACK ROUTE
+
   # this route should be last in the routes list, and causes the page to render the html file
   get '*path',
   to: 'fallback#index',

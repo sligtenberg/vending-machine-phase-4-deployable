@@ -1,33 +1,27 @@
-import { Switch, Route } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./Context/user";
-import './App.css';
 import NavBarContainer from "./NavBar/NavBarContainer";
+import MainPageContainer from "./MainPage/MainPageContainer";
 
 function App() {
   const { user, setUser } = useContext(UserContext)
+  const [errors, setErrors] = useState([])
 
   useEffect(() => {
     // auto login
     fetch('/me').then(rspns => {
       if (rspns.ok) rspns.json().then(setUser)
-      else rspns.json().then(console.log)
+      else rspns.json().then(setErrors)
     })
-  }, [])
+  }, [setUser])
 
   return (
-    <div className="App">
+    <div >
       <h1>Stevo's Vending Machines</h1>
       <NavBarContainer />
-      <Switch>
-        <Route path="/testing">
-          <h1>Test Route</h1>
-        </Route>
-        <Route path="/">
-          <h1>Vending machines coming soon!</h1>
-          <div>Current User: {user}</div>
-        </Route>
-      </Switch>
+      {user ?
+        <MainPageContainer /> :
+        <h3>{errors.errors}</h3>}
     </div>
   );
 }

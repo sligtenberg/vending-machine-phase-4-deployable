@@ -7,7 +7,7 @@ function NavBarContainer() {
   const { user } = useContext(UserContext)
 
   return (
-    user ?
+    user ? 
       <LoggedInNavBar /> :
       <LoggedOutNavBar />
   );
