@@ -6,8 +6,6 @@ import MainPageContainer from "./MainPage/MainPageContainer";
 function App() {
   const { user, setUser } = useContext(UserContext)
 
-  console.log(user)
-
   useEffect(() => {
     // auto login
     fetch('/me').then(rspns => {
@@ -18,7 +16,7 @@ function App() {
 
   return (
     <div >
-      <h1>Stevo's Vending Machines</h1>
+      <h1>Welcome to VendVille!</h1>
       <NavBarContainer />
       {user ?
         <MainPageContainer /> :

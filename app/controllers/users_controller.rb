@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   end
 
   # DEV ONLY!!!
-  def index
-    render json: User.all
-  end
+  # def index
+  #   render json: User.all
+  # end
 
   private
 

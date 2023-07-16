@@ -1,6 +1,9 @@
 import { useContext } from 'react';
-import { Switch, Route } from 'react-router-dom/cjs/react-router-dom';
 import { UserContext } from '../Context/user';
+import { Switch, Route } from 'react-router-dom/cjs/react-router-dom';
+import Home from './Home';
+import Shop from './Shop';
+import ManageUserMachines from './ManageUserMachines';
 
 function MainPageContainer() {
   const { user } = useContext(UserContext)
@@ -8,13 +11,13 @@ function MainPageContainer() {
     <div>
       <Switch>
         <Route path='/home'>
-          <div>Home Page / Instructions</div>
+          <Home />
         </Route>
         <Route path='/shop'>
-          <div>All Vending Machines</div>
+          <Shop />
         </Route>
         <Route path={`/${user.username}`}>
-          <div>{user.username}'s Vending Machines</div>
+          <ManageUserMachines />
         </Route>
         <Route exact path='/'>
           <div>Home Page / Instructions</div>
