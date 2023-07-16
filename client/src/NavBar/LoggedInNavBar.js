@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom";
 function LoggedInNavBar() {
   const { user, setUser } = useContext(UserContext)
 
+  // delete user's session 
   function handleLogout() {
     fetch('/logout', {method: 'DELETE'})
     .then(rspns => {

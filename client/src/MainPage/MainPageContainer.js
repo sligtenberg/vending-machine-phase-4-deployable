@@ -7,6 +7,7 @@ import ManageUserMachines from './ManageUserMachines';
 
 function MainPageContainer() {
   const { user } = useContext(UserContext)
+  
   return (
     <div>
       <Switch>
@@ -20,7 +21,7 @@ function MainPageContainer() {
           <ManageUserMachines />
         </Route>
         <Route exact path='/'>
-          <div>Home Page / Instructions</div>
+          <Home />
         </Route>
         <Route path='*'>
           <h1>404 not found</h1>

@@ -13,3 +13,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Indicates a line used as a placehold for development purposes */
+.dev-placeholder {
+  background-color:rgb(215, 222, 6);
+}

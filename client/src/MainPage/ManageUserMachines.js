@@ -1,11 +1,15 @@
 import { useContext } from 'react';
-import { UserContext } from '../Context/user';
+import { VendingMachineContext } from '../Context/vending_machine';
 
 function ManageUserMachines() {
-  const { user } = useContext(UserContext)
+  const { userVendingMachines } = useContext(VendingMachineContext)
 
   return (
-    <div>{user.username}'s Vending Machines</div>
+    <div>
+      <div className="dev-placeholder">* Instructions *</div>
+      <h3>My Vending Machines</h3>
+      <div className="dev-placeholder">* User Vending Machines *</div>
+    </div>
   );
 }
 

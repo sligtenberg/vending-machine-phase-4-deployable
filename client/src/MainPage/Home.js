@@ -1,6 +1,6 @@
 function Home() {
   return (
-    <div>Home Page / Instructions</div>
+    <div className="dev-placeholder">* Home Page / Instructions *</div>
   );
 }
 

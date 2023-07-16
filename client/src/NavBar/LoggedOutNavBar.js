@@ -5,6 +5,8 @@ function LoggedOutNavBar() {
   const [loginMode, setLoginMode] = useState(true)
   const { setUser } = useContext(UserContext)
 
+  // if logging in, create a session for the user
+  // if createing an account, create a new user, and start a session for them
   function handleSubmit(e) {
     e.preventDefault()
     fetch((loginMode ? '/login' : '/users'), {
