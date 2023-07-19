@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # automatically log in if the user has a session
   def show
-    render json: @current_user
+    render json: @current_user, include: ['vending_machines', 'vending_machines.inventories', 'vending_machines.inventories.snack']
   end
 
   # DEV ONLY!!!

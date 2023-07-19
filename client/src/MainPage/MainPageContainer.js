@@ -1,12 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../Context/user';
 import { Switch, Route } from 'react-router-dom/cjs/react-router-dom';
 import Home from './Home';
 import Shop from './Shop';
 import ManageUserMachines from './ManageUserMachines';
+import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
 function MainPageContainer() {
   const { user } = useContext(UserContext)
+  const { setAllVendingMachines } = useContext(AllVendingMachineContext)
+
+  // fetch and set all vending machines
+  useEffect(() => {
+    fetch('/vending_machines').then(rspns => {
+      if (rspns.ok) rspns.json().then(setAllVendingMachines)
+      else rspns.json().then(console.log)
+    })
+  }, [])
   
   return (
     <div>

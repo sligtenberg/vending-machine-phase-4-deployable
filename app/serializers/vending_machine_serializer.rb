@@ -1,3 +1,5 @@
 class VendingMachineSerializer < ActiveModel::Serializer
-  attributes :id, :name, :user_id
+  attributes :id, :name
+
+  has_many :inventories
 end

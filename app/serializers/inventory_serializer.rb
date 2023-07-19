@@ -1,3 +1,5 @@
 class InventorySerializer < ActiveModel::Serializer
-  attributes :id, :quantity, :vending_machine_id, :snack_id
+  attributes :quantity
+
+  belongs_to :snack
 end

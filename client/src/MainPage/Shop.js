@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { VendingMachineContext } from "../Context/vending_machine";
+import { AllVendingMachineContext } from "../Context/all_vending_machines";
+import VendingMachinesContainer from "../VendingMachine/VendingMachinesContainer";
 
 function Shop() {
-  const { allVendingMachines } = useContext(VendingMachineContext);
+  const { allVendingMachines } = useContext(AllVendingMachineContext);
 
   return (
     <div>
       <div className="dev-placeholder">* Instructions *</div>
       <h3>Vending Machines Open For Business</h3>
-      <div className="dev-placeholder">* All Vending Machines *</div>
+      <VendingMachinesContainer vendingMachines={allVendingMachines}/>
     </div>
   );
 }

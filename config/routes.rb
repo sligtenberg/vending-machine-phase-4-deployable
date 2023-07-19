@@ -2,18 +2,23 @@ Rails.application.routes.draw do
 
   # DEVELOPMENT ROUTES - MUST DELETE FOR PRODUCTION
   # resources :inventories, only: [:index]
-  # resources :snacks, only: [:index]
+  resources :snacks, only: [:index]
   # resources :vending_machines, only: [:index]
   # resources :users, only: [:index]
 
   # PRODUCTION ROUTES
 
   # auto login route:
-  get '/me', to: 'users#show'
-
+  
   # session routes:
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  # user routes
+  get '/me', to: 'users#show' # if user has a session, return user object
+
+  # vending_machine routes:
+  get '/vending_machines', to: 'vending_machines#index'
 
   # FALLBACK ROUTE
 
