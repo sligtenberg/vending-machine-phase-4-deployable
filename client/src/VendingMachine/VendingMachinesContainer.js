@@ -9,7 +9,7 @@ function VendingMachinesContainer({ vendingMachines }) {
         vendingMachine={vendingMachine}/>)
 
   return (
-    <div>{vendingMachineComponents}</div>
+    <div className="vending-machine-container">{vendingMachineComponents}</div>
   );
 }
 

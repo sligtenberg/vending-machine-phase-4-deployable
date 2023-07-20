@@ -1,5 +1,5 @@
 class InventorySerializer < ActiveModel::Serializer
-  attributes :quantity
+  attributes :id, :quantity
 
   belongs_to :snack
 end

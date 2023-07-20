@@ -8,7 +8,6 @@ function Shop() {
   return (
     <div>
       <div className="dev-placeholder">* Instructions *</div>
-      <h3>Vending Machines Open For Business</h3>
       <VendingMachinesContainer vendingMachines={allVendingMachines}/>
     </div>
   );
