@@ -36,7 +36,7 @@ function LoggedOutNavBar() {
           name='loginModeToggle'
           onClick={() => setLoginMode(false)}/>
         <span className="float-right">
-          <input type='text' placeholder="username"/>
+          <input type='text' placeholder="username" autoFocus/>
           <input type='password' placeholder="password"/>
           <input
             type='submit'

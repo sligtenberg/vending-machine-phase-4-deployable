@@ -4,6 +4,7 @@ import VendingMachinesContainer from '../VendingMachine/VendingMachinesContainer
 
 function ManageUserMachines() {
   const { user } = useContext(UserContext)
+  //console.log(user)
 
   return (
     <div>

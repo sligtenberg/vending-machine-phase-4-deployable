@@ -49,3 +49,12 @@ nav {
   column-gap: 3px;
   row-gap: 3px;
 }
+
+.snack-card {
+  background-color: pink;
+  border-radius: 8px;
+}
+
+.snack-card:hover {
+  background-color: lightpink;
+}

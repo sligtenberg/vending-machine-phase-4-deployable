@@ -7,13 +7,14 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
-    render json: user, status: :created
+    render json: user, include: ['vending_machines', 'vending_machines.inventories', 'vending_machines.inventories.snack'], status: :created
   end
 
   # automatically log in if the user has a session
   def show
     render json: @current_user, include: ['vending_machines', 'vending_machines.inventories', 'vending_machines.inventories.snack']
   end
+
 
   # DEV ONLY!!!
   # def index
