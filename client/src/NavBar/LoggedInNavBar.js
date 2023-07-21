@@ -32,7 +32,7 @@ function LoggedInNavBar() {
         </button>
       </NavLink>
       <NavLink to='/'>
-        <button onClick={handleLogout} >
+        <button onClick={handleLogout} className="float-right">
           Log Out
         </button>
       </NavLink>

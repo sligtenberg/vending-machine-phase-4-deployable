@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # user routes
   get '/me', to: 'users#show' # if user has a session, return user object
+  post '/users', to: 'users#create' # create a new user
 
   # vending_machine routes:
   get '/vending_machines', to: 'vending_machines#index'

@@ -13,31 +13,35 @@ function LoggedOutNavBar() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: e.target[0].value,
-        password: e.target[1].value
+        username: e.target[2].value,
+        password: e.target[3].value
       })
     })
     .then(rspns => {
       if(rspns.ok) rspns.json().then(setUser)
       else rspns.json().then(rspns => alert(rspns.errors))
-    })    
+    })
   }
 
   return (
     <nav>
-      Log In <input
-        type='radio'
-        name='loginModeToggle'
-        defaultChecked
-        onClick={() => setLoginMode(true)}/>
-      Create Account <input
-        type='radio'
-        name='loginModeToggle'
-        onClick={() => setLoginMode(false)}/>
       <form onSubmit={handleSubmit}>
-        Username: <input type='text' />
-        Password: <input type='password' />
-        <input type='submit' value={loginMode ? 'Log In' : 'Create Account'}/>
+        Log In<input
+          type='radio'
+          name='loginModeToggle'
+          defaultChecked
+          onClick={() => setLoginMode(true)}/>
+        Create Account<input
+          type='radio'
+          name='loginModeToggle'
+          onClick={() => setLoginMode(false)}/>
+        <span className="float-right">
+          <input type='text' placeholder="username"/>
+          <input type='password' placeholder="password"/>
+          <input
+            type='submit'
+            value={loginMode ? 'Log In' : 'Create Account'}/>
+        </span>
       </form>
     </nav>
   );
