@@ -1,11 +1,6 @@
-// import { useContext } from "react";
-// import { useLocation } from 'react-router-dom'
-// import { UserContext } from "../Context/user";
 import SnackCard from "./SnackCard";
 
 function SnackContainer({ inventories }) {
-  // const path = useLocation().pathname
-  // const { user } = useContext(UserContext)
 
   // map the existing snacks (inventories) to snack card components
   const snackCards = inventories
