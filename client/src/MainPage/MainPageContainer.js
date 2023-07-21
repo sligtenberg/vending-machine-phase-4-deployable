@@ -5,18 +5,25 @@ import Home from './Home';
 import Shop from './Shop';
 import ManageUserMachines from './ManageUserMachines';
 import { AllVendingMachineContext } from '../Context/all_vending_machines';
+import { SnacksContext } from '../Context/snacks';
 
 function MainPageContainer() {
   const { user } = useContext(UserContext)
   const { setAllVendingMachines } = useContext(AllVendingMachineContext)
+  const { setSnacks } = useContext(SnacksContext)
 
-  // fetch and set all vending machines
   useEffect(() => {
+    // fetch and set all vending machines
     fetch('/vending_machines').then(rspns => {
       if (rspns.ok) rspns.json().then(setAllVendingMachines)
       else rspns.json().then(console.log)
     })
-  }, [])
+    // fetch and set the snacks
+    fetch('/snacks').then(rspns => {
+      if (rspns.ok) rspns.json().then(setSnacks)
+      else rspns.json().then(console.log)
+    })
+  }, [setAllVendingMachines, setSnacks])
   
   return (
     <div>
