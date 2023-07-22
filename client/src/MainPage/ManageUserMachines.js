@@ -9,7 +9,7 @@ function ManageUserMachines() {
   return (
     <div>
       <div className="dev-placeholder">* Instructions *</div>
-      <h3>{user.username}'s Vending Machines</h3>
+      <h2>{user.username}'s Vending Machines</h2>
       <VendingMachinesContainer vendingMachines={user.vending_machines}/>
     </div>
   );

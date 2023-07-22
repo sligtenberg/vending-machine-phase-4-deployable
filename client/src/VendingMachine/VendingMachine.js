@@ -5,7 +5,7 @@ function VendingMachine({ vendingMachine }) {
   return (
     <div className="vending-machine">
       <h3>{vendingMachine.name}</h3>
-      <SnackContainer inventories={vendingMachine.inventories}/>
+      <SnackContainer vendingMachine={vendingMachine}/>
     </div>
   );
 }
