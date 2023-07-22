@@ -12,10 +12,10 @@ class InventoriesController < ApplicationController
     render json: inventory
     end
   
-    def destroy
-      find_inventory.destroy
-      head :no_content
-    end  
+  def destroy
+    find_inventory.destroy
+    head :no_content
+  end  
 
   private
 
