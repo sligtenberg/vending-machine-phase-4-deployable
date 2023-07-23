@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { SnacksContext } from '../Context/snacks';
 import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
-function EditSnack({ setShowModal, inventory, vendingMachine }) {
+function EditSnack({ setShowModal, inventory, currentVendingMachine }) {
   // all available snacks, taken from context
   const { snacks } = useContext(SnacksContext)
 
@@ -13,11 +13,11 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
   // new potential inventory to be sent in request
   const [newInventory, setNewInventory] = useState(inventory ? {
       quantity: inventory.quantity,
-      vending_machine_id: vendingMachine.id,
+      vending_machine_id: currentVendingMachine.id,
       snack_id: parseInt(inventory.snack.id)
     } : {
       quantity: 0,
-      vending_machine_id: vendingMachine.id,
+      vending_machine_id: currentVendingMachine.id,
       snack_id: 0
     })
 
@@ -30,6 +30,11 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
   const modalRef = useRef()
   const closeModal = e => e.target === modalRef.current ? setShowModal(false) : null
 
+  // the callback function takes a vending machine and returns an updated version of the vending machine
+  function modifyInventoryState(callback) {
+    modifyState(getter => getter.map(vendingMachine => vendingMachine.id === currentVendingMachine.id ? callback(vendingMachine) : vendingMachine))
+  }
+
   function createInventory() {
     fetch('/inventories', {
       method: 'POST',
@@ -37,14 +42,12 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
       body: JSON.stringify(newInventory)
     }).then(rspns => {
       if (rspns.ok) {
-        rspns.json().then(newInventory => {
-          modifyState(getter => getter.map(machine => {
-            if (machine.id === vendingMachine.id) {
-              const newVendingMachine = {...machine}
-              newVendingMachine.inventories = [...machine.inventories, newInventory]
-              return newVendingMachine
-            } return machine
-          }))
+        rspns.json().then(updatedInventory => {
+          modifyInventoryState(vendingMachine => {
+            const newVendingMachine = {...vendingMachine}
+            newVendingMachine.inventories = [...vendingMachine.inventories, updatedInventory]
+            return newVendingMachine
+          })
         })
       }
       else rspns.json().then(rspns => alert(rspns.errors.snack_id))
@@ -59,14 +62,11 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
     }).then(rspns => {
       if (rspns.ok) { // update state 
         rspns.json().then(updatedInventory => {
-          modifyState(getter => getter.map(machine => {
-            if (machine.id === vendingMachine.id) {
-              machine.inventories = machine.inventories.map(inventory => 
-                inventory.id === updatedInventory.id ? updatedInventory : inventory)
-              return machine
-            } 
-            return machine
-          }))
+          modifyInventoryState(vendingMachine => {
+            vendingMachine.inventories = vendingMachine.inventories.map(inventory => 
+              inventory.id === updatedInventory.id ? updatedInventory : inventory)
+            return vendingMachine
+          })
         })
       } else rspns.json().then(rspns => alert(rspns.errors.snack_id))
     })
@@ -76,13 +76,11 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
     fetch(`/inventories/${inventory.id}`, {method: 'DELETE'})
       .then(rspns => {
         if (rspns.ok) { // update state 
-          modifyState(getter => getter.map(machine => {
-            if (machine.id === vendingMachine.id) {
-              machine.inventories = machine.inventories
-                .filter(i => i.id !== inventory.id)
-              return machine
-            } return machine
-          }))
+          modifyInventoryState(vendingMachine => {
+            vendingMachine.inventories = vendingMachine.inventories
+              .filter(i => i.id !== inventory.id)
+            return vendingMachine
+          })
         } else alert("Something went wrong")
       })
   }
@@ -109,8 +107,8 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
       <form className='modal' onSubmit={handleSnackSubmit}>
         <h4>
           {inventory ?
-            `Edit ${inventory.snack.name} in ${vendingMachine.name}` :
-            `Add a new snack to ${vendingMachine.name}`}
+            `Edit ${inventory.snack.name} in ${currentVendingMachine.name}` :
+            `Add a new snack to ${currentVendingMachine.name}`}
         </h4>
         <select
           name='snack_id'

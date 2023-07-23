@@ -28,7 +28,7 @@ function SnackCard({ inventory, vendingMachine }) {
       {showModal ? <EditSnack
         setShowModal={setShowModal}
         inventory={inventory}
-        vendingMachine={vendingMachine}/> : null}
+        currentVendingMachine={vendingMachine}/> : null}
     </>
   );
 }
