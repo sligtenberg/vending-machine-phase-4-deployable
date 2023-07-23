@@ -1,10 +1,14 @@
 import { useContext, useRef, useState } from 'react';
 import ReactDom from 'react-dom';
 import { SnacksContext } from '../Context/snacks';
+import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
 function EditSnack({ setShowModal, inventory, vendingMachine }) {
   // all available snacks, taken from context
   const { snacks } = useContext(SnacksContext)
+
+  // function used to update state for all vending machines and user vending machines
+  const { modifyState } = useContext(AllVendingMachineContext)
 
   // new potential inventory to be sent in request
   const [newInventory, setNewInventory] = useState(inventory ? {
@@ -26,42 +30,70 @@ function EditSnack({ setShowModal, inventory, vendingMachine }) {
   const modalRef = useRef()
   const closeModal = e => e.target === modalRef.current ? setShowModal(false) : null
 
+  function createInventory() {
+    fetch('/inventories', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newInventory)
+    }).then(rspns => {
+      if (rspns.ok) {
+        rspns.json().then(newInventory => {
+          modifyState(getter => getter.map(machine => {
+            if (machine.id === vendingMachine.id) {
+              const newVendingMachine = {...machine}
+              newVendingMachine.inventories = [...machine.inventories, newInventory]
+              return newVendingMachine
+            } return machine
+          }))
+        })
+      }
+      else rspns.json().then(rspns => alert(rspns.errors.snack_id))
+    })
+  }
+
+  function updateInventory() {
+    fetch(`/inventories/${inventory.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newInventory)    
+    }).then(rspns => {
+      if (rspns.ok) { // update state 
+        rspns.json().then(updatedInventory => {
+          modifyState(getter => getter.map(machine => {
+            if (machine.id === vendingMachine.id) {
+              machine.inventories = machine.inventories.map(inventory => 
+                inventory.id === updatedInventory.id ? updatedInventory : inventory)
+              return machine
+            } 
+            return machine
+          }))
+        })
+      } else rspns.json().then(rspns => alert(rspns.errors.snack_id))
+    })
+  }
+
+  function deleteInventory() {
+    fetch(`/inventories/${inventory.id}`, {method: 'DELETE'})
+      .then(rspns => {
+        if (rspns.ok) { // update state 
+          modifyState(getter => getter.map(machine => {
+            if (machine.id === vendingMachine.id) {
+              machine.inventories = machine.inventories
+                .filter(i => i.id !== inventory.id)
+              return machine
+            } return machine
+          }))
+        } else alert("Something went wrong")
+      })
+  }
+  
   function handleSnackSubmit(e) {
     e.preventDefault()
     if (inventory) {
-      if (newInventory.snack_id) { // patch request to update the inventory
-        fetch(`/inventories/${inventory.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newInventory)    
-        }).then(rspns => {
-          if (rspns.ok) {
-            setShowModal(false)
-            // update state 
-          } else rspns.json().then(rspns => alert(rspns.errors.snack_id))
-        })
-      } else { // delete request to destroy the inventory
-        fetch(`/inventories/${inventory.id}`, {method: 'DELETE'})
-          .then(rspns => {
-            if (rspns.ok) {
-              setShowModal(false)
-              // update state 
-            } else alert("Something went wrong")
-          })
-      }
-    } else { // post request creating a new inventory
-      fetch('/inventories', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newInventory)
-      }).then(rspns => {
-        if (rspns.ok) {
-          setShowModal(false)
-          // update state
-        }
-        else rspns.json().then(rspns => alert(rspns.errors.snack_id))
-      })
-    }
+      if (newInventory.snack_id) updateInventory()
+      else deleteInventory()
+    } else createInventory()
+    setShowModal(false)
   }
 
   function handleFormChange(e){
