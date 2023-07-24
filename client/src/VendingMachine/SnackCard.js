@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { UserContext } from "../Context/user";
 import EditSnack from "../Modals/EditSnack";
 
-function SnackCard({ inventory, vendingMachine }) {
+function SnackCard({ inventory }) {
   const path = useLocation().pathname
   const [showModal, setShowModal] = useState(false)
   const { user } = useContext(UserContext)
@@ -18,7 +18,7 @@ function SnackCard({ inventory, vendingMachine }) {
   return (
     <>
       <button className="snack-card" onClick={handleSnackCardClick}>
-        {inventory ? 
+        {inventory.snack ? 
           <div>
             {inventory.snack.name}<br/>
             ${inventory.snack.price.toFixed(2)}<br/>
@@ -27,8 +27,7 @@ function SnackCard({ inventory, vendingMachine }) {
       </button>
       {showModal ? <EditSnack
         setShowModal={setShowModal}
-        inventory={inventory}
-        currentVendingMachine={vendingMachine}/> : null}
+        oldInventory={inventory}/> : null}
     </>
   );
 }

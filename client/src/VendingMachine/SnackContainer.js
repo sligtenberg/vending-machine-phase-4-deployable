@@ -1,21 +1,22 @@
 import SnackCard from "./SnackCard";
 
-function SnackContainer({ vendingMachine }) {
+function SnackContainer({ inventories }) {
 
   // map the existing snacks (inventories) to snack card components
-  const snackCards = vendingMachine.inventories
-    .map(inventory => <SnackCard
-      key={inventory.id}
-      inventory={inventory}
-      vendingMachine={vendingMachine}/>)
+  const snackCards = inventories.map(inventory =>
+    <SnackCard key={inventory.id} inventory={inventory}/>)
 
   // if there are not 12 snacks,
   // fill the rest of the slots with blank cards
-  while (snackCards.length < 12) {
-    snackCards.push(<SnackCard
-      key={`a${snackCards.length}`}
-      vendingMachine={vendingMachine}/>)
-  }
+  // while (snackCards.length < 12) {
+  //   snackCards.push(<SnackCard
+  //     key={`a${snackCards.length}`}
+  //     inventory={{
+  //       quantity: 0,
+  //       vending_machine_id: 0,
+  //       snack_id: 0
+  //     }}/>)
+  // }
 
   return (
     <div className="snack-container">{snackCards}</div>

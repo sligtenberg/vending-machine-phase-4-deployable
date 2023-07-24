@@ -8,16 +8,28 @@ function AllVendingMachineProvider({ children }) {
   const { setUser } = useContext(UserContext)
   const { user } = useContext(UserContext)
 
-  function modifyState(callback) {
+  // callback function takes an array of vanding machines and applies the provided function to them 
+  function modifyVendingMachineState(callback) {
     setAllVendingMachines(callback(allVendingMachines))
     setUser({...user, vending_machines: callback(user.vending_machines)})
-    //setUser(callback(user.vending_machines))
   }
+
+  // modifyInventoryState takes a callback function and uses it to update the state of a given vending machine
+  // callback function takes a vending machine and returns an updated version of the vending machine
+  function modifyInventoryState(vendingMachineId, callback) {
+    modifyVendingMachineState(getter =>
+      getter.map(vendingMachine =>
+        vendingMachine.id === vendingMachineId ?
+          callback(vendingMachine) : vendingMachine))}
 
   return (
     <AllVendingMachineContext.Provider
-      value={{ allVendingMachines, setAllVendingMachines, modifyState }}>
-        {children}
+      value={{
+        allVendingMachines,
+        setAllVendingMachines,
+        modifyVendingMachineState,
+        modifyInventoryState}}>
+          {children}
     </AllVendingMachineContext.Provider>
   );
 }

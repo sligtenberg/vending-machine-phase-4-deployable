@@ -3,36 +3,54 @@ import ReactDom from 'react-dom';
 import { SnacksContext } from '../Context/snacks';
 import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
-function EditSnack({ setShowModal, inventory, currentVendingMachine }) {
+function EditSnack({ setShowModal, oldInventory }) {
   // all available snacks, taken from context
   const { snacks } = useContext(SnacksContext)
 
   // function used to update state for all vending machines and user vending machines
-  const { modifyState } = useContext(AllVendingMachineContext)
+  const { modifyInventoryState } = useContext(AllVendingMachineContext)
 
-  // new potential inventory to be sent in request
-  const [newInventory, setNewInventory] = useState(inventory ? {
-      quantity: inventory.quantity,
-      vending_machine_id: currentVendingMachine.id,
-      snack_id: parseInt(inventory.snack.id)
-    } : {
-      quantity: 0,
-      vending_machine_id: currentVendingMachine.id,
-      snack_id: 0
-    })
+  // newInventory is the potential inventory to be sent in a request
+  const [newInventory, setNewInventory] = useState({
+    id: oldInventory.id,
+    quantity: oldInventory.quantity,
+    snack_id: oldInventory.snack ? oldInventory.snack.id : 0,
+    vending_machine_id: oldInventory.vending_machine.id
+  })
+
+  // if an oldInventory is passed in, we use it as the template for newInventory
+  // otherwise, we create a blank one to be set by the user
+  // ? {
+  //     quantity: oldInventory.quantity,
+  //     vending_machine_id: oldInventory.vending_machine.id,
+  //     snack_id: parseInt(oldInventory.snack.id)
+  //   } : {
+  //     quantity: 0,
+  //     vending_machine_id: oldInventory.vending_machine.id,
+  //     snack_id: 0
+  //   })
 
   // the dropdown options list is build from the snacks array, retrieved from snack context
   const dropDownOptions = snacks.map(snack =>
-    <option key={snack.id} name='snack_id' value={snack.id}>
+    <option key={snack.id} name='snack' value={snack.id}>
       {snack.name}: ${snack.price.toFixed(2)}</option>)
 
   // close the modal when clicking outside the modal.
   const modalRef = useRef()
   const closeModal = e => e.target === modalRef.current ? setShowModal(false) : null
 
-  // the callback function takes a vending machine and returns an updated version of the vending machine
-  function modifyInventoryState(callback) {
-    modifyState(getter => getter.map(vendingMachine => vendingMachine.id === currentVendingMachine.id ? callback(vendingMachine) : vendingMachine))
+  // update modal inventory state on form change
+  const handleFormChange = e => setNewInventory({
+    ...newInventory,
+    [e.target.name]: e.target.value}) //  === '0' ? 0 : parseInt(e.target.value) || '' 
+
+  function handleFormSubmit(e) {
+    e.preventDefault()
+    if (oldInventory.snack) {
+      if (newInventory.snack_id) updateInventory()
+      else deleteInventory()
+    } else if (newInventory.snack_id) createInventory()
+    setShowModal(false)
   }
 
   function createInventory() {
@@ -41,9 +59,9 @@ function EditSnack({ setShowModal, inventory, currentVendingMachine }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newInventory)
     }).then(rspns => {
-      if (rspns.ok) {
+      if (rspns.ok) { // update state 
         rspns.json().then(updatedInventory => {
-          modifyInventoryState(vendingMachine => {
+          modifyInventoryState(oldInventory.vending_machine.id, vendingMachine => {
             const newVendingMachine = {...vendingMachine}
             newVendingMachine.inventories = [...vendingMachine.inventories, updatedInventory]
             return newVendingMachine
@@ -55,16 +73,16 @@ function EditSnack({ setShowModal, inventory, currentVendingMachine }) {
   }
 
   function updateInventory() {
-    fetch(`/inventories/${inventory.id}`, {
+    fetch(`/inventories/${oldInventory.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newInventory)    
     }).then(rspns => {
       if (rspns.ok) { // update state 
         rspns.json().then(updatedInventory => {
-          modifyInventoryState(vendingMachine => {
-            vendingMachine.inventories = vendingMachine.inventories.map(inventory => 
-              inventory.id === updatedInventory.id ? updatedInventory : inventory)
+          modifyInventoryState(oldInventory.vending_machine.id, vendingMachine => {
+            vendingMachine.inventories = vendingMachine.inventories.map(oldInventory => 
+              oldInventory.id === updatedInventory.id ? updatedInventory : oldInventory)
             return vendingMachine
           })
         })
@@ -73,49 +91,34 @@ function EditSnack({ setShowModal, inventory, currentVendingMachine }) {
   }
 
   function deleteInventory() {
-    fetch(`/inventories/${inventory.id}`, {method: 'DELETE'})
+    fetch(`/inventories/${oldInventory.id}`, {method: 'DELETE'})
       .then(rspns => {
         if (rspns.ok) { // update state 
-          modifyInventoryState(vendingMachine => {
+          modifyInventoryState(oldInventory.vending_machine.id, vendingMachine => {
             vendingMachine.inventories = vendingMachine.inventories
-              .filter(i => i.id !== inventory.id)
+              .filter(inventory => inventory.id !== oldInventory.id)
             return vendingMachine
           })
         } else alert("Something went wrong")
       })
   }
   
-  function handleSnackSubmit(e) {
-    e.preventDefault()
-    if (inventory) {
-      if (newInventory.snack_id) updateInventory()
-      else deleteInventory()
-    } else createInventory()
-    setShowModal(false)
-  }
-
-  function handleFormChange(e){
-    setNewInventory({
-      ...newInventory,
-      [e.target.name]: e.target.value === '0' ? 0 : parseInt(e.target.value) || ''
-    })
-  }
   
   // render the modal JSX in the portal div.
   return ReactDom.createPortal(
     <div className='container' ref={modalRef} onClick={closeModal}>
-      <form className='modal' onSubmit={handleSnackSubmit}>
+      <form className='modal' onSubmit={handleFormSubmit}>
         <h4>
-          {inventory ?
-            `Edit ${inventory.snack.name} in ${currentVendingMachine.name}` :
-            `Add a new snack to ${currentVendingMachine.name}`}
+          {oldInventory.snack ?
+            `Edit ${oldInventory.snack.name} in ${oldInventory.vending_machine.name}` :
+            `Add a new snack to ${oldInventory.vending_machine.name}`}
         </h4>
         <select
           name='snack_id'
           value={newInventory.snack_id}
           onChange={handleFormChange}>
             <option key='0' name='snack_id' value='0'>
-              {inventory ? 'remove snack' : 'none'}
+              {oldInventory.snack ? 'remove snack' : 'none'}
             </option>
             {dropDownOptions}
         </select>
