@@ -14,13 +14,22 @@ function AllVendingMachineProvider({ children }) {
     setUser({...user, vending_machines: callback(user.vending_machines)})
   }
 
-  // modifyInventoryState takes a callback function and uses it to update the state of a given vending machine
-  // callback function takes a vending machine and returns an updated version of the vending machine
-  function modifyInventoryState(vendingMachineId, callback) {
-    modifyVendingMachineState(getter =>
-      getter.map(vendingMachine =>
-        vendingMachine.id === vendingMachineId ?
-          callback(vendingMachine) : vendingMachine))}
+  // updateInventoryState takes an inventory and an action and returns an array of
+  // vending machines with the given action applied to the given inventory
+  function updateInventoryState(inventory, action) {
+    modifyVendingMachineState(getter => getter.map(vendingMachine => {
+      if (vendingMachine.id === inventory.vending_machine.id) {
+        switch(action) {
+          case 'create':
+            return {...vendingMachine, inventories: [...[...vendingMachine.inventories], inventory]}
+          case 'update':
+            return {...vendingMachine, inventories: [...vendingMachine.inventories].map(oldInventory => oldInventory.id === inventory.id ? inventory : oldInventory)}
+          default: // delete
+            return {...vendingMachine, inventories: [...vendingMachine.inventories].filter(oldInventory => oldInventory.id !== inventory.id)}
+        }
+      } else return vendingMachine
+    }))
+  }
 
   return (
     <AllVendingMachineContext.Provider
@@ -28,7 +37,7 @@ function AllVendingMachineProvider({ children }) {
         allVendingMachines,
         setAllVendingMachines,
         modifyVendingMachineState,
-        modifyInventoryState}}>
+        updateInventoryState}}>
           {children}
     </AllVendingMachineContext.Provider>
   );
