@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../Context/user';
 import VendingMachinesContainer from '../VendingMachine/VendingMachinesContainer';
+import NewVendingMachine from './NewVendingMachine';
 
 function ManageUserMachines() {
   const { user } = useContext(UserContext)
@@ -9,7 +10,7 @@ function ManageUserMachines() {
   return (
     <div>
       <div className="dev-placeholder">* Instructions *</div>
-      <div className="dev-placeholder">* New Vending Machine *</div>
+      <NewVendingMachine />
       <h2>{user.username}'s Vending Machines</h2>
       <VendingMachinesContainer vendingMachines={user.vending_machines}/>
     </div>

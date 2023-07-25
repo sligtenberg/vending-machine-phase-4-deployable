@@ -12,7 +12,7 @@ function SnackCard({ inventory }) {
     // if in manage vending machine mode, open snack-editing modal
     if (path === `/${user.username.toLowerCase()}`) setShowModal(true)
     // else if in shop mode and there is a snack there, purchase it
-    else if (inventory) console.log(`${inventory.snack.name} purchased`)
+    else if (inventory.snack) console.log(`${inventory.snack.name} purchased`)
   }
 
   return (

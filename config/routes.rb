@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
 
   # vending_machine routes:
-  resources :vending_machines, only: [:index]
+  resources :vending_machines, only: [:index, :create, :destroy]
 
   # inventory routes:
-  resources :inventories, only: [:create, :destroy, :update]
+  resources :inventories, only: [:create, :update, :destroy]
 
   # snacks routes:
   resources :snacks, only: [:index]
