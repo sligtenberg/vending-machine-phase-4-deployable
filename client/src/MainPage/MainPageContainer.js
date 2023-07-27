@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom/cjs/react-router-dom';
 import Home from './Home';
 import Shop from './Shop';
 import ManageUserMachines from './ManageUserMachines';
+import ManageSnacks from './ManageSnacks';
 import { AllVendingMachineContext } from '../Context/all_vending_machines';
 import { SnacksContext } from '../Context/snacks';
 
@@ -36,6 +37,9 @@ function MainPageContainer() {
         </Route>
         <Route path={`/${user.username}`}>
           <ManageUserMachines />
+        </Route>
+        <Route path='/manage_snacks'>
+          <ManageSnacks />
         </Route>
         <Route exact path='/'>
           <Home />

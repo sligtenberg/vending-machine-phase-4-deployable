@@ -5,7 +5,6 @@ import NewVendingMachine from './NewVendingMachine';
 
 function ManageUserMachines() {
   const { user } = useContext(UserContext)
-  //console.log(user)
 
   return (
     <div>

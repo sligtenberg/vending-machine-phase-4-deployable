@@ -17,24 +17,19 @@ function LoggedInNavBar() {
   return (
     <nav>
       <NavLink to='/home'>
-        <button>
-          Home
-        </button>
+        <button>Home</button>
       </NavLink>
       <NavLink to='/shop'>
-        <button>
-          Shop
-        </button>
+        <button>Shop</button>
       </NavLink>
       <NavLink to={`/${user.username.toLowerCase()}`}>
-        <button>
-          My Vending Machines
-        </button>
+        <button>{user.username}'s Vending Machines</button>
+      </NavLink>
+      <NavLink to='/manage_snacks'>
+        <button>Manage Snacks</button>
       </NavLink>
       <NavLink to='/'>
-        <button onClick={handleLogout} className="float-right">
-          Log Out
-        </button>
+        <button onClick={handleLogout} className="float-right">Log Out</button>
       </NavLink>
     </nav>
   );

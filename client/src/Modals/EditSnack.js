@@ -50,7 +50,7 @@ function EditSnack({ setShowModal, oldInventory }) {
     }).then(rspns => {
       if (rspns.ok) rspns.json().then(updatedInventory => 
         updateInventoryState(updatedInventory, 'create'))
-      else rspns.json().then(rspns => alert(rspns.errors.snack_id))
+      else rspns.json().then(rspns => alert(Object.values(rspns.errors)))
     })
   }
 
@@ -62,7 +62,7 @@ function EditSnack({ setShowModal, oldInventory }) {
     }).then(rspns => {
       if (rspns.ok) rspns.json().then(updatedInventory => 
         updateInventoryState(updatedInventory, 'update'))
-      else rspns.json().then(rspns => alert(rspns.errors.snack_id))
+      else rspns.json().then(rspns => alert(Object.values(rspns.errors)))
     })
   }
 
@@ -98,6 +98,7 @@ function EditSnack({ setShowModal, oldInventory }) {
           name='quantity'
           value={newInventory.quantity}
           placeholder='quantity'
+          //min='0'
           required
           onChange={handleFormChange}/>
         <input type='submit'/>

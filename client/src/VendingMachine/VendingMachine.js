@@ -1,10 +1,15 @@
 import { useContext } from "react";
+import { useLocation } from 'react-router-dom'
 import SnackContainer from "./SnackContainer";
 import { AllVendingMachineContext } from "../Context/all_vending_machines";
+import { UserContext } from "../Context/user";
 
 function VendingMachine({ vendingMachine }) {
   const inventories = [...vendingMachine.inventories]
   const { modifyVendingMachineState } = useContext(AllVendingMachineContext)
+  const path = useLocation().pathname
+  const { user } = useContext(UserContext)
+  //console.log(vendingMachine)
 
   // fill the remaining inventory slots with blank inventories
   while (inventories.length < 12) {
@@ -29,7 +34,8 @@ function VendingMachine({ vendingMachine }) {
 
   return (
     <div className="vending-machine">
-      <button className='float-right' onClick={handleDeleteButtonClick}>X</button>
+      {path === `/${user.username.toLowerCase()}` ?
+        <button className='float-right' onClick={handleDeleteButtonClick}>X</button> : null}
       <h3>{vendingMachine.name}</h3>
       <SnackContainer inventories={inventories}/>
     </div>

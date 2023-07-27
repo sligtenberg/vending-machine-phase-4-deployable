@@ -5,7 +5,7 @@ function NewVendingMachine() {
   const { modifyVendingMachineState } = useContext(AllVendingMachineContext)
   function handleFormSubmit(e) {
     e.preventDefault()
-    console.log(e.target[0].value)
+    //console.log(e.target[0].value)
     fetch('/vending_machines', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -13,7 +13,7 @@ function NewVendingMachine() {
     }).then(rspns => {
       if (rspns.ok) rspns.json().then(newVendingMachine => 
         modifyVendingMachineState(getter => [...getter, newVendingMachine]))
-      else rspns.json().then(rspns => alert(rspns.errors.name))
+      else rspns.json().then(rspns => alert(rspns.errors))
     })
   }
 

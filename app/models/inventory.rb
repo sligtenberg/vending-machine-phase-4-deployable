@@ -2,7 +2,10 @@ class Inventory < ApplicationRecord
   belongs_to :snack
   belongs_to :vending_machine
 
-  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates :quantity, numericality: { greater_than_or_equal_to: 0, message: -> (object, data) do
+      "Quantity must be greater than or equal to 0"
+    end
+  }
   validates :snack_id, uniqueness: { scope: :vending_machine_id, message: -> (object, data) do
       "#{object.vending_machine.name} already has #{object.snack.name}!"
     end

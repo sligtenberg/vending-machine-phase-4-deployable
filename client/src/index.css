@@ -30,6 +30,22 @@ select {
   height: 21px;
 }
 
+table {
+  margin: auto;
+}
+
+table {
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: lightgreen;
+}
+
+th {
+  border-bottom: 1px solid;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
 .float-right {
   float: right;
 }

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :inventories, only: [:create, :update, :destroy]
 
   # snacks routes:
-  resources :snacks, only: [:index]
+  resources :snacks, only: [:index, :create]
 
   # FALLBACK ROUTE
 
