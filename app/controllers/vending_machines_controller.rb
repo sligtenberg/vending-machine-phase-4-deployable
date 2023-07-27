@@ -1,7 +1,7 @@
 class VendingMachinesController < ApplicationController
 
   def index
-    render json: VendingMachine.all, include: ['inventories', 'inventories.snack', 'inventories.vending_machine']
+    render json: VendingMachine.all, include: ['inventories', 'inventories.snack']
   end
 
   def create

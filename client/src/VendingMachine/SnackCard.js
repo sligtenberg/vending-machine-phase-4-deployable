@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { UserContext } from "../Context/user";
 import EditSnack from "../Modals/EditSnack";
 
-function SnackCard({ inventory }) {
+function SnackCard({ inventory, vendingMachine }) {
   const path = useLocation().pathname
   const [showModal, setShowModal] = useState(false)
   const { user } = useContext(UserContext)
@@ -27,7 +27,8 @@ function SnackCard({ inventory }) {
       </button>
       {showModal ? <EditSnack
         setShowModal={setShowModal}
-        oldInventory={inventory}/> : null}
+        oldInventory={inventory}
+        vendingMachine={vendingMachine}/> : null}
     </>
   );
 }

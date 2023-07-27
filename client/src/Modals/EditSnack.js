@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { SnacksContext } from '../Context/snacks';
 import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
-function EditSnack({ setShowModal, oldInventory }) {
+function EditSnack({ setShowModal, oldInventory, vendingMachine }) {
   // all available snacks, taken from context
   const { snacks } = useContext(SnacksContext)
 
@@ -15,7 +15,7 @@ function EditSnack({ setShowModal, oldInventory }) {
     id: oldInventory.id,
     quantity: oldInventory.quantity,
     snack_id: oldInventory.snack ? oldInventory.snack.id : 0,
-    vending_machine_id: oldInventory.vending_machine.id
+    vending_machine_id: vendingMachine.id
   })
 
   // the dropdown options list is build from the
@@ -81,8 +81,8 @@ function EditSnack({ setShowModal, oldInventory }) {
       <form className='modal' onSubmit={handleFormSubmit}>
         <h4>
           {oldInventory.snack ?
-            `Edit ${oldInventory.snack.name} in ${oldInventory.vending_machine.name}` :
-            `Add a new snack to ${oldInventory.vending_machine.name}`}
+            `Edit ${oldInventory.snack.name} in ${vendingMachine.name}` :
+            `Add a new snack to ${vendingMachine.name}`}
         </h4>
         <select
           name='snack_id'

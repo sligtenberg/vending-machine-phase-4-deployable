@@ -14,8 +14,12 @@ function ManageSnacks() {
     <tr key={snack.id}>
       <td >{snack.name}</td>
       <td>${snack.price.toFixed(2)}</td>
-      <td>{snack.vending_machines.length > 0 ? <button>Used by</button> : <button>Delete</button>}</td>
+      <td>{snack.vending_machines.length > 0 ? <button onClick={displaySnackUsage}>Used by</button> : <button>Delete</button>}</td>
     </tr>)
+
+    function displaySnackUsage(e) {
+      console.log(e)
+    }
 
     function handleButtonClick() {
       fetch('/snacks', {
@@ -24,10 +28,7 @@ function ManageSnacks() {
         body: JSON.stringify(newSnack)
       }).then(rspns => {
         if (rspns.ok) rspns.json().then(newSnack => setSnacks([...snacks, newSnack]))
-        else rspns.json().then(rspns => {
-          console.log(rspns)
-          alert(rspns.errors)
-        })
+        else rspns.json().then(rspns => alert(rspns.errors))
       })
     }
 
@@ -38,7 +39,7 @@ function ManageSnacks() {
           <tr><th>Snack</th><th>Price</th></tr>
           {snackRows}
           <tr>
-            <td><input placeholder="new snack" name='name' value={newSnack.name} onChange={handleFormChange}/></td>
+            <td><input placeholder="new snack" name='name' autoFocus value={newSnack.name} onChange={handleFormChange}/></td>
             <td>$<input placeholder="price" type = 'number' name='price' value={newSnack.price} onChange={handleFormChange}/></td>
             <td><button onClick={handleButtonClick}>Create Snack</button></td>
           </tr>

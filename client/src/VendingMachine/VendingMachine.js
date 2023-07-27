@@ -9,7 +9,6 @@ function VendingMachine({ vendingMachine }) {
   const { modifyVendingMachineState } = useContext(AllVendingMachineContext)
   const path = useLocation().pathname
   const { user } = useContext(UserContext)
-  //console.log(vendingMachine)
 
   // fill the remaining inventory slots with blank inventories
   while (inventories.length < 12) {
@@ -37,7 +36,7 @@ function VendingMachine({ vendingMachine }) {
       {path === `/${user.username.toLowerCase()}` ?
         <button className='float-right' onClick={handleDeleteButtonClick}>X</button> : null}
       <h3>{vendingMachine.name}</h3>
-      <SnackContainer inventories={inventories}/>
+      <SnackContainer inventories={inventories} vendingMachine={vendingMachine}/>
     </div>
   );
 }

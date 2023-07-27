@@ -6,10 +6,12 @@ class Inventory < ApplicationRecord
       "Quantity must be between 0 and 999"
     end
   }
+  
   validates :snack_id, uniqueness: { scope: :vending_machine_id, message: -> (object, data) do
       "#{object.vending_machine.name} already has #{object.snack.name}!"
     end
   }
+
   validate :twelve_snack_max
 
   def twelve_snack_max
