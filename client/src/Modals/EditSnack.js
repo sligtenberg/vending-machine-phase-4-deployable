@@ -98,7 +98,8 @@ function EditSnack({ setShowModal, oldInventory }) {
           name='quantity'
           value={newInventory.quantity}
           placeholder='quantity'
-          //min='0'
+          min='0'
+          max='999'
           required
           onChange={handleFormChange}/>
         <input type='submit'/>
