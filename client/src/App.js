@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div >
-      <h1>Welcome to VendVille!</h1>
+      <h1>VendVille</h1>
       <NavBarContainer />
       {user ?
         <AllVendingMachineProvider>

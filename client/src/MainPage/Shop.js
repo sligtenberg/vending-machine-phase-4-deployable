@@ -7,7 +7,10 @@ function Shop() {
 
   return (
     <div>
-      <div className="dev-placeholder">* Instructions *</div>
+      <div className="instructions">
+        Below are all the vending machines, including you own!
+        Click a snack to purchase it.
+      </div>
       <VendingMachinesContainer vendingMachines={allVendingMachines}/>
     </div>
   );

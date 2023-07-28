@@ -50,6 +50,11 @@ li {
   text-align: left;
 }
 
+.instructions {
+  text-align: left;
+  margin: 10px 40px;
+}
+
 .float-right {
   float: right;
 }

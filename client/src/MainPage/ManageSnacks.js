@@ -19,7 +19,7 @@ function ManageSnacks() {
       <td >{snack.name}</td>
       <td>${snack.price.toFixed(2)}</td>
       <td>{snack.vending_machines.length > 0 ?
-        <button onClick={() => displaySnackUsage(snack.id)}>Used by</button> :
+        <button onClick={() => displaySnackUsage(snack.id)}>Sold by</button> :
         <button onClick={() => deleteSnack(snack.id)}>Delete</button>}</td>
     </tr>)
 
@@ -54,6 +54,12 @@ function ManageSnacks() {
 
   return (
     <>
+      <div className="instructions">
+        Below is a list of all the currently available snacks.
+        You may create new snacks using the form at the bottom.
+        The Sold by button will display a list of all the vending machines that sell that snack.
+        If a snack is not currently being sold by any vending machines, it is eligible for deletion.
+      </div>
       <table>
         <caption><h2>Snacks</h2></caption>
         <tbody>
