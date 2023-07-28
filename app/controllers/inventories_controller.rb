@@ -1,7 +1,7 @@
 class InventoriesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_inventory_response
 
-  # how to ensure inventory beolgs to a vending machine that belongs to current user?
+  # how to ensure inventory belongs to a vending machine that belongs to current user?
   def create
     inventory = Inventory.create!(inventory_params)
     render json: inventory, status: :created

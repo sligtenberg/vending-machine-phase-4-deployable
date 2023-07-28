@@ -4,6 +4,11 @@ class SnacksController < ApplicationController
       render json: Snack.all
   end
 
+  def show
+    #debugger
+    render json: find_snack
+  end
+
   def create
       snack = Snack.create!(snack_params)
       render json: snack, status: :created

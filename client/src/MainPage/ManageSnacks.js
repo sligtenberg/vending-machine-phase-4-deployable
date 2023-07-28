@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { SnacksContext } from "../Context/snacks";
+import ViewSnackUsage from "../Modals/ViewSnackUsage";
 
 function ManageSnacks() {
   const { snacks, setSnacks } = useContext(SnacksContext)
@@ -7,6 +8,9 @@ function ManageSnacks() {
     name: '',
     price: ''
   })
+
+  const [showModal, setShowModal] = useState(false)
+  const [snack, setSnack] = useState(null)
 
   const handleFormChange = e => setNewSnack({...newSnack, [e.target.name]: e.target.value})
 
@@ -20,16 +24,20 @@ function ManageSnacks() {
     </tr>)
 
     function displaySnackUsage(snackId) {
-      console.log(snackId)
+      fetch(`/snacks/${snackId}`).then(rspns => {
+        if (rspns.ok) rspns.json().then(rspns => {
+          setSnack(rspns)
+          setShowModal(true)
+        })
+        else alert("Something went wrong")
+      })
     }
 
     function deleteSnack(snackId) {
       fetch(`/snacks/${snackId}`, {method: 'DELETE'})
       .then(rspns => {
-        if (rspns.ok) {
-          setSnacks(snacks.filter(snack => snack.id != snackId))
-
-        } else alert("Something went wrong")
+        if (rspns.ok) setSnacks(snacks.filter(snack => snack.id !== snackId))
+        else alert("Something went wrong")
       })
     }
 
@@ -45,6 +53,7 @@ function ManageSnacks() {
     }
 
   return (
+    <>
       <table>
         <caption><h2>Snacks</h2></caption>
         <tbody>
@@ -57,6 +66,10 @@ function ManageSnacks() {
           </tr>
         </tbody>
       </table>
+      {showModal ? <ViewSnackUsage 
+        setShowModal={setShowModal}
+        snack={snack}/> : null}
+    </>
   );
 }
 

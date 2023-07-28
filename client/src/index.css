@@ -46,6 +46,10 @@ th {
   padding: 10px;
 }
 
+li {
+  text-align: left;
+}
+
 .float-right {
   float: right;
 }
