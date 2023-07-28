@@ -71,7 +71,7 @@ function EditSnack({ setShowModal, oldInventory, vendingMachine }) {
       .then(rspns => {
         if (rspns.ok) { // update state 
           updateInventoryState(oldInventory, 'delete')
-        } else alert("Something went wrong")
+        } else alert('Something went wrong')
       })
   }
   

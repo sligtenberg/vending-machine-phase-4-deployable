@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { UserContext } from "../Context/user";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import { useContext } from 'react';
+import { UserContext } from '../Context/user';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 
 function LoggedInNavBar() {
   const { user, setUser } = useContext(UserContext)
@@ -10,7 +10,7 @@ function LoggedInNavBar() {
     fetch('/logout', {method: 'DELETE'})
     .then(rspns => {
       if (rspns.ok) setUser(null)
-      else alert("Something went wrong")
+      else alert('Something went wrong')
     })
   }
 
@@ -29,7 +29,7 @@ function LoggedInNavBar() {
         <button>Manage Snacks</button>
       </NavLink>
       <NavLink to='/'>
-        <button onClick={handleLogout} className="float-right">Log Out</button>
+        <button onClick={handleLogout} className='float-right'>Log Out</button>
       </NavLink>
     </nav>
   );

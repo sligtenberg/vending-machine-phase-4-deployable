@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../Context/user";
+import { useContext, useState } from 'react';
+import { UserContext } from '../Context/user';
 
 function LoggedOutNavBar() {
   const [loginMode, setLoginMode] = useState(true)
@@ -35,9 +35,9 @@ function LoggedOutNavBar() {
           type='radio'
           name='loginModeToggle'
           onClick={() => setLoginMode(false)}/>
-        <span className="float-right">
-          <input placeholder="username" autoFocus/>
-          <input type='password' placeholder="password"/>
+        <span className='float-right'>
+          <input placeholder='username' autoFocus/>
+          <input type='password' placeholder='password'/>
           <input
             type='submit'
             value={loginMode ? 'Log In' : 'Create Account'}/>

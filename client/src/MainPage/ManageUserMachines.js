@@ -8,7 +8,7 @@ function ManageUserMachines() {
 
   return (
     <div>
-      <div className="instructions">
+      <div className='instructions'>
         Here you may create and edit your personal vending machines.
         Use the New Vending Machine form to create a new vending machine.
         The X in the top right deletes the vending machine.

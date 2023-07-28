@@ -1,4 +1,4 @@
-import VendingMachine from "./VendingMachine";
+import VendingMachine from './VendingMachine';
 
 function VendingMachinesContainer({ vendingMachines }) {
 
@@ -9,7 +9,7 @@ function VendingMachinesContainer({ vendingMachines }) {
         vendingMachine={vendingMachine}/>)
 
   return (
-    <div className="vending-machine-container">{vendingMachineComponents}</div>
+    <div className='vending-machine-container'>{vendingMachineComponents}</div>
   );
 }
 

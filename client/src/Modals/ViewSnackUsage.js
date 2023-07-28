@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 import ReactDom from 'react-dom';
 
 function ViewSnackUsage({ snack, setShowModal }) {
@@ -12,7 +12,7 @@ function ViewSnackUsage({ snack, setShowModal }) {
 
   return ReactDom.createPortal(
     <div className='container' ref={modalRef} onClick={closeModal}>
-      <div className="modal">
+      <div className='modal'>
         <h4>{snack.name} is sold by the following vending machines:</h4>
         {vendingMachineList}
       </div>

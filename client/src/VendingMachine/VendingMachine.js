@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom'
-import SnackContainer from "./SnackContainer";
-import { AllVendingMachineContext } from "../Context/all_vending_machines";
-import { UserContext } from "../Context/user";
+import SnackContainer from './SnackContainer';
+import { AllVendingMachineContext } from '../Context/all_vending_machines';
+import { UserContext } from '../Context/user';
 
 function VendingMachine({ vendingMachine }) {
   const inventories = [...vendingMachine.inventories]
@@ -27,12 +27,12 @@ function VendingMachine({ vendingMachine }) {
         modifyVendingMachineState(getter => getter.filter(oldVendingMachine => 
           oldVendingMachine.id !== vendingMachine.id)
         )
-      } else alert("Something went wrong")
+      } else alert('Something went wrong')
     })
   }
 
   return (
-    <div className="vending-machine">
+    <div className='vending-machine'>
       {path === `/${user.username.toLowerCase()}` ?
         <button className='float-right' onClick={handleDeleteButtonClick}>X</button> : null}
       <h3>{vendingMachine.name}</h3>

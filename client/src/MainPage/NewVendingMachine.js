@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import { AllVendingMachineContext } from "../Context/all_vending_machines"
+import { useContext } from 'react'
+import { AllVendingMachineContext } from '../Context/all_vending_machines'
 
 function NewVendingMachine() {
   const { modifyVendingMachineState } = useContext(AllVendingMachineContext)

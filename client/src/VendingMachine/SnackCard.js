@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import { UserContext } from "../Context/user";
-import EditSnack from "../Modals/EditSnack";
+import { UserContext } from '../Context/user';
+import EditSnack from '../Modals/EditSnack';
 
 function SnackCard({ inventory, vendingMachine }) {
   const path = useLocation().pathname
@@ -17,7 +17,7 @@ function SnackCard({ inventory, vendingMachine }) {
 
   return (
     <>
-      <button className="snack-card" onClick={handleSnackCardClick}>
+      <button className='snack-card' onClick={handleSnackCardClick}>
         {inventory.snack ? 
           <div>
             {inventory.snack.name}<br/>

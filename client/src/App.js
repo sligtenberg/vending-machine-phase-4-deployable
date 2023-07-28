@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
-import { UserContext } from "./Context/user";
-import NavBarContainer from "./NavBar/NavBarContainer";
-import MainPageContainer from "./MainPage/MainPageContainer";
-import { AllVendingMachineProvider } from "./Context/all_vending_machines";
-import { SnacksProvider } from "./Context/snacks";
+import { useContext, useEffect } from 'react';
+import { UserContext } from './Context/user';
+import NavBarContainer from './NavBar/NavBarContainer';
+import MainPageContainer from './MainPage/MainPageContainer';
+import { AllVendingMachineProvider } from './Context/all_vending_machines';
+import { SnacksProvider } from './Context/snacks';
 
 function App() {
   const { user, setUser } = useContext(UserContext)

@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import { SnacksContext } from "../Context/snacks";
-import ViewSnackUsage from "../Modals/ViewSnackUsage";
+import { useContext, useState } from 'react';
+import { SnacksContext } from '../Context/snacks';
+import ViewSnackUsage from '../Modals/ViewSnackUsage';
 
 function ManageSnacks() {
   const { snacks, setSnacks } = useContext(SnacksContext)
@@ -29,7 +29,7 @@ function ManageSnacks() {
           setSnack(rspns)
           setShowModal(true)
         })
-        else alert("Something went wrong")
+        else alert('Something went wrong')
       })
     }
 
@@ -37,7 +37,7 @@ function ManageSnacks() {
       fetch(`/snacks/${snackId}`, {method: 'DELETE'})
       .then(rspns => {
         if (rspns.ok) setSnacks(snacks.filter(snack => snack.id !== snackId))
-        else alert("Something went wrong")
+        else alert('Something went wrong')
       })
     }
 
@@ -54,7 +54,7 @@ function ManageSnacks() {
 
   return (
     <>
-      <div className="instructions">
+      <div className='instructions'>
         Below is a list of all the currently available snacks.
         You may create new snacks using the form at the bottom.
         The Sold by button will display a list of all the vending machines that sell that snack.
@@ -66,8 +66,8 @@ function ManageSnacks() {
           <tr><th>Snack</th><th>Price</th></tr>
           {snackRows}
           <tr>
-            <td><input placeholder="new snack" name='name' autoFocus value={newSnack.name} onChange={handleFormChange}/></td>
-            <td>$<input placeholder="price" type = 'number' name='price' value={newSnack.price} onChange={handleFormChange}/></td>
+            <td><input placeholder='new snack' name='name' autoFocus value={newSnack.name} onChange={handleFormChange}/></td>
+            <td>$<input placeholder='price' type = 'number' name='price' value={newSnack.price} onChange={handleFormChange}/></td>
             <td><button onClick={handleButtonClick}>Create Snack</button></td>
           </tr>
         </tbody>
