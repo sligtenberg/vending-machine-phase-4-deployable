@@ -22,7 +22,7 @@ function AllVendingMachineProvider({ children }) {
   // reflect the inventory modification in state
   function updateInventoryState(inventory, action) {
     modifyVendingMachineState(getter => getter.map(vendingMachine => {
-      if (vendingMachine.id === inventory.vending_machine.id) {
+      if (vendingMachine.id === inventory.vending_machine_id) {
         switch(action) {
           case 'create':
             return {...vendingMachine, inventories: [...[...vendingMachine.inventories], inventory]}

@@ -14,11 +14,23 @@ function ManageSnacks() {
     <tr key={snack.id}>
       <td >{snack.name}</td>
       <td>${snack.price.toFixed(2)}</td>
-      <td>{snack.vending_machines.length > 0 ? <button onClick={displaySnackUsage}>Used by</button> : <button>Delete</button>}</td>
+      <td>{snack.vending_machines.length > 0 ?
+        <button onClick={() => displaySnackUsage(snack.id)}>Used by</button> :
+        <button onClick={() => deleteSnack(snack.id)}>Delete</button>}</td>
     </tr>)
 
-    function displaySnackUsage(e) {
-      console.log(e)
+    function displaySnackUsage(snackId) {
+      console.log(snackId)
+    }
+
+    function deleteSnack(snackId) {
+      fetch(`/snacks/${snackId}`, {method: 'DELETE'})
+      .then(rspns => {
+        if (rspns.ok) {
+          setSnacks(snacks.filter(snack => snack.id != snackId))
+
+        } else alert("Something went wrong")
+      })
     }
 
     function handleButtonClick() {

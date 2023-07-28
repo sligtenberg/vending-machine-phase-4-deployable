@@ -15,6 +15,7 @@ class SnacksController < ApplicationController
       snack.destroy
       head :no_content
     else
+      # this is not rendering properly
       render json: { errors: ["Snack is in use"] }, status: :unauthorized
     end
   end
