@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # inventory routes:
   resources :inventories, only: [:create, :update, :destroy]
+  get '/inventories/:id/purchase', to: 'inventories#purchase'
 
   # snacks routes:
   resources :snacks, only: [:index, :create, :destroy, :show]

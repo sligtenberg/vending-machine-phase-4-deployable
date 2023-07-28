@@ -16,7 +16,13 @@ class InventoriesController < ApplicationController
   def destroy
     find_inventory.destroy
     head :no_content
-  end  
+  end
+
+  def purchase
+    inventory = Inventory.find(params[:id])
+    inventory.update!(quantity: inventory.quantity - 1)
+    render json: inventory
+  end
 
   private
 

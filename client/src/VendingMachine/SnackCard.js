@@ -2,17 +2,26 @@ import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import { UserContext } from '../Context/user';
 import EditSnack from '../Modals/EditSnack';
+import { AllVendingMachineContext } from '../Context/all_vending_machines';
 
 function SnackCard({ inventory, vendingMachine }) {
   const path = useLocation().pathname
   const [showModal, setShowModal] = useState(false)
   const { user } = useContext(UserContext)
+  const { updateInventoryState } = useContext(AllVendingMachineContext)
 
   function handleSnackCardClick() {
     // if in manage vending machine mode, open snack-editing modal
     if (path === `/${user.username.toLowerCase()}`) setShowModal(true)
     // else if in shop mode and there is a snack there, purchase it
-    else if (inventory.snack) console.log(`${inventory.snack.name} purchased`)
+    else if (inventory.snack) {
+      console.log('purchase: ', inventory)
+      fetch(`/inventories/${inventory.id}/purchase`).then(rspns => {
+        if (rspns.ok) rspns.json().then(updatedInventory => 
+          updateInventoryState(updatedInventory, 'update'))
+        else rspns.json().then(rspns => alert(Object.values(rspns.errors)))
+      })
+    }
   }
 
   return (
