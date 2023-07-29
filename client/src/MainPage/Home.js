@@ -3,6 +3,7 @@ import { UserContext } from '../Context/user';
 
 function Home() {
   const { user } = useContext(UserContext)
+
   return (
     <>
       <h4>Welcome to Vendville!</h4>
@@ -12,6 +13,9 @@ function Home() {
         Create vending machines and add snacks to them in the {user.username}'s Vending Machine tab.
         Create your own custom snacks in the Manage Snacks tab. Happy vending!
       </div>
+      <button onClick={() => window.open('https://github.com/sligtenberg/vending-machine-phase-4-deployable', "_blank", "noreferrer")}>
+        Repo, readme, & instructions
+      </button>
     </>
   );
 }
