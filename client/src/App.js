@@ -26,7 +26,12 @@ function App() {
             <MainPageContainer />
           </SnacksProvider>
         </AllVendingMachineProvider> :
-        <h3>Log in or sign up to vend!</h3>}
+        <>
+          <h3>Log in or sign up to vend!</h3>
+          <button onClick={() => window.open('https://github.com/sligtenberg/vending-machine-phase-4-deployable', "_blank", "noreferrer")}>
+            Repo, readme, & instructions
+          </button>
+        </>}
     </div>
   );
 }
