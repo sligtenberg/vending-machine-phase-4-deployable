@@ -1,5 +1,4 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,6 +7,8 @@ body {
   text-align: center;
   background-color: lightblue;
   font-size: small;
+  max-width: 708px;
+  margin: auto;
 }
 
 nav {
@@ -17,6 +18,7 @@ nav {
   border: 1px solid;
   border-radius: 5px;
   text-align: left;
+  display:flow-root;
 }
 
 h3 {
@@ -59,20 +61,14 @@ li {
   float: right;
 }
 
-/* Indicates a line used as a placehold for development purposes */
-.dev-placeholder {
-  background-color:rgb(215, 222, 6);
-}
-
 .vending-machine-container {
   display: inline-flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .vending-machine {
   background-color: lightgreen;
-  margin: 10px;
+  margin: 5px;
   padding: 3px;
   border: 1px solid;
   border-radius: 5px;

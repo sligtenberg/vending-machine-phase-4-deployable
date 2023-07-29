@@ -7,17 +7,12 @@ import { SnacksProvider } from './Context/snacks';
 
 function App() {
   const { user, setUser } = useContext(UserContext)
-  //console.log(user)
 
   useEffect(() => {
     // auto login - on page load, get request to '/me' looks for a user in the session
     // if found, the user is logged in and set to user in
     fetch('/me').then(rspns => {
-      if (rspns.ok) rspns.json().then(userObj => {
-        //console.log(userObj)
-        setUser(userObj)
-      })
-      // else rspns.json().then(console.log)
+      if (rspns.ok) rspns.json().then(userObj => setUser(userObj))
     })
   }, [setUser])
 

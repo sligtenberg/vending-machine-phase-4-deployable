@@ -15,10 +15,11 @@ function SnackCard({ inventory, vendingMachine }) {
     if (path === `/${user.username.toLowerCase()}`) setShowModal(true)
     // else if in shop mode and there is a snack there, purchase it
     else if (inventory.snack) {
-      console.log('purchase: ', inventory)
       fetch(`/inventories/${inventory.id}/purchase`).then(rspns => {
-        if (rspns.ok) rspns.json().then(updatedInventory => 
-          updateInventoryState(updatedInventory, 'update'))
+        if (rspns.ok) {
+          rspns.json().then(updatedInventory => updateInventoryState(updatedInventory, 'update'))
+          alert(`${inventory.snack.name} has been purchased!`)
+        }
         else rspns.json().then(rspns => alert(Object.values(rspns.errors)))
       })
     }

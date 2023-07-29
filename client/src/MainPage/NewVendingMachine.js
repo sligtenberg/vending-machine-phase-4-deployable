@@ -5,7 +5,6 @@ function NewVendingMachine() {
   const { modifyVendingMachineState } = useContext(AllVendingMachineContext)
   function handleFormSubmit(e) {
     e.preventDefault()
-    //console.log(e.target[0].value)
     fetch('/vending_machines', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

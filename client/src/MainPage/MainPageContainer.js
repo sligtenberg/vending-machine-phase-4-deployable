@@ -17,12 +17,12 @@ function MainPageContainer() {
     // fetch and set all vending machines
     fetch('/vending_machines').then(rspns => {
       if (rspns.ok) rspns.json().then(setAllVendingMachines)
-      else rspns.json().then(console.log)
+      else alert("Something went wrong")
     })
     // fetch and set the snacks
     fetch('/snacks').then(rspns => {
       if (rspns.ok) rspns.json().then(setSnacks)
-      else rspns.json().then(console.log)
+      else alert("Something went wrong")
     })
   }, [setAllVendingMachines, setSnacks])
   

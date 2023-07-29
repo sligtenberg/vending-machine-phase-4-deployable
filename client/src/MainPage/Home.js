@@ -5,7 +5,7 @@ function Home() {
   const { user } = useContext(UserContext)
   return (
     <>
-      <h2>Welcome to Vendville!</h2>
+      <h4>Welcome to Vendville!</h4>
       <div className='instructions'>
         Vendville is a social network of vending machines.
         Browse vending machines and buy snacks in the Shop tab.

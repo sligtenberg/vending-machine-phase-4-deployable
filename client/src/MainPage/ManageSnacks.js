@@ -61,7 +61,7 @@ function ManageSnacks() {
         If a snack is not currently being sold by any vending machines, it is eligible for deletion.
       </div>
       <table>
-        <caption><h2>Snacks</h2></caption>
+        <caption><h4>Snacks</h4></caption>
         <tbody>
           <tr><th>Snack</th><th>Price</th></tr>
           {snackRows}

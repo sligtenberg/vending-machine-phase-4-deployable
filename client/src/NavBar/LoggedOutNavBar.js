@@ -34,7 +34,10 @@ function LoggedOutNavBar() {
         Create Account<input
           type='radio'
           name='loginModeToggle'
-          onClick={() => setLoginMode(false)}/>
+          onClick={() => {
+            setLoginMode(false)
+            alert("DO NOT USE A PASSWORD YOU USE FOR ANY OTHER SITE")
+          }}/>
         <span className='float-right'>
           <input placeholder='username' autoFocus/>
           <input type='password' placeholder='password'/>

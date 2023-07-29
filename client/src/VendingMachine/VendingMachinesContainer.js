@@ -3,8 +3,7 @@ import VendingMachine from './VendingMachine';
 function VendingMachinesContainer({ vendingMachines }) {
 
   const vendingMachineComponents = vendingMachines
-    .map(vendingMachine => 
-      <VendingMachine
+    .map(vendingMachine => <VendingMachine
         key={vendingMachine.id}
         vendingMachine={vendingMachine}/>)
 
